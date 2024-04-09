@@ -41,6 +41,66 @@ def main():
     '''Display results'''
     print(f"Estimated value of the car: ${estimated_value}")
 
+def get_car_info():
+    """
+     This will ask the user to input the car info needed.
+
+    Asks the user to input details about their  such as car, including make, model,
+    year, mileage, condition, and location.
+
+    Returns:
+        tuple: Contains the car's make, model, year, mileage, condition, and location.
+    """
+    print("Please enter the following information about your car:")
+    make = input("Make: ")
+    model = input("Model: ")
+    year = input("Year: ")
+    mileage = input("Mileage: ")
+    condition = input("Condition (Excellent, Good, Fair, Poor): ")
+    location = input("Location (City/State): ")
+    return make, model, year, mileage, condition, location
+
+
+def estimate_car_value(year, mileage, condition, average_market_price):
+    """
+    This function will estimate the car's value based on year, mileage, condition, and the average market price.
+
+    Parameters:
+        year (str): The manufacture year of the car.
+        mileage (str): The current mileage of the car.
+        condition (str): The used condition of the car (Excellent, Good, Fair, Poor).
+        average_market_price (float): The average market price of the car based on data collected.
+
+    Returns:
+        float: The estimated value of the car.
+    """
+   
+    # Simplified estimation logic will work on more later
+    condition_multiplier = {"Excellent": 1.1, "Good": 1.0, "Fair": 0.9, "Poor": 0.8}
+    age = 2024 - int(year)  # Assuming the current year is 2024
+    depreciation = age * 0.05
+    estimated_value = average_market_price * condition_multiplier[condition] * (1 - depreciation)
+    return max(estimated_value, 1000)  # Ensure the car value doesn't go below $1000
+
+def provide_recs(estimated_value, average_market_price):
+    """
+    This function will provide recommendations about negotiating the selling price based on the estimated value and average market price.
+
+    Parameters:
+        estimated_value (float): The estimated value of the car based on the info provided.
+        average_market_price (float): The average market price of similar cars in similar conditio s.
+
+    The function then prints a recommendation for the user on how to proceed with selling their car based on the comparison
+    between the estimated value and the average market price.
+    """
+    if estimated_value > average_market_price:
+        print("Your car's estimated value is higher than the average market price. You have a good chance of negotiating a higher selling price.")
+    elif estimated_value < average_market_price:
+        print("Your car's estimated value is lower than the average market price. Be prepared for tough negotiations, and consider setting a slightly higher asking price.")
+    else:
+        print("Your car's estimated value matches the average market price. You're in a good position to start negotiations.")
+
+
 '''Call the main function'''
 if __name__ == "__main__":
     main()
