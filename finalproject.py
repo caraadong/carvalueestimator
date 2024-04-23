@@ -9,13 +9,18 @@ from tkinter import messagebox
 
 '''Web scraping to collect car listing data'''
 def scrape_car_data(make, model, year, mileage, condition, location):
-    # Your web scraping code here
-    pass
-
-'''Machine learning model to estimate car values'''
-def estimate_car_value(car_data):
-    # Your machine learning code here
-    pass
+    url = f"https://example.com/cars/{make}/{model}/{year}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        # Parse the response using BeautifulSoup
+        soup = BeautifulSoup(response.content, "html.parser")
+        # Extract relevant data from the webpage
+        # Will replace this with actual scraping logic based on the website structure
+        price_tag = soup.find("span", class_="price")
+        if price_tag:
+            price = float(price_tag.text.replace("$", "").replace(",", ""))
+            return {"price": price}
+    return None
 
 '''User interface for inputting car information and displaying results'''
 def create_user_interface():
@@ -60,7 +65,7 @@ def get_car_info():
     location = input("Location (City/State): ")
     return make, model, year, mileage, condition, location
 
-
+'''Machine learning model to estimate car values'''
 def estimate_car_value(year, mileage, condition, average_market_price):
     """
     This function will estimate the car's value based on year, mileage, condition, and the average market price.
