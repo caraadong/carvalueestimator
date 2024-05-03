@@ -8,8 +8,8 @@ import tkinter as tk
 from tkinter import messagebox
 
 '''Web scraping to collect car listing data'''
-def scrape_car_data(make, model, year, mileage, condition, location):
-    url = f"https://example.com/cars/{make}/{model}/{year}"
+def scrape_car_data(make, model, year, mileage, condition):
+    url = f"https://example.com/cars/{make}/{model}/{year}/{mileage}/{condition}"
     response = requests.get(url)
     if response.status_code == 200:
         # Parse the response using BeautifulSoup
@@ -35,10 +35,9 @@ def main():
     year = int(input("Enter the year of the car: "))
     mileage = int(input("Enter the mileage of the car: "))
     condition = input("Enter the condition of the car (e.g., excellent, good, fair, poor): ")
-    location = input("Enter the location of the car: ")
 
     '''Scrape car data'''
-    car_data = scrape_car_data(make, model, year, mileage, condition, location)
+    car_data = scrape_car_data(make, model, year, mileage, condition)
 
     '''Estimate car value'''
     estimated_value = estimate_car_value(car_data)
@@ -62,8 +61,7 @@ def get_car_info():
     year = input("Year: ")
     mileage = input("Mileage: ")
     condition = input("Condition (Excellent, Good, Fair, Poor): ")
-    location = input("Location (City/State): ")
-    return make, model, year, mileage, condition, location
+    return make, model, year, mileage, condition
 
 '''Machine learning model to estimate car values'''
 def estimate_car_value(year, mileage, condition, average_market_price):
